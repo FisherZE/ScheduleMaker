@@ -2,7 +2,8 @@ package Schedule;
 
 import java.time.*;
 import java.util.ArrayList;
- public class scheduleMaker
+import Classes.Class;
+ public class ScheduleMaker
  {
     private static ArrayList<Schedule> schedules;
     private static ArrayList<Event> events;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
         for (int i = 0; i < Math.pow(2, mask.length); i++)
         {      
             Schedule newSched = new Schedule();
+            
             if (i != 0)
             {
                 mask[0]++;
@@ -63,10 +65,10 @@ import java.util.ArrayList;
                         {
                             continue mainloop;
                         }
-                        for (DayOfWeek day : cur.onDays()) 
+                        for (DayOfWeek day : cur.getOnDays()) 
                         {
                             // Checks for overlap between days
-                            if (c.onDays().contains(day))
+                            if (c.getOnDays().contains(day))
                             {
                                 if ((cur.getStartTime() >= c.getStartTime() && cur.getStartTime() <= c.getEndTime())||(cur.getEndTime() >= c.getStartTime() && cur.getEndTime() <= c.getEndTime()))
                                 {
@@ -78,7 +80,7 @@ import java.util.ArrayList;
                     // Checks for overlap with events
                     for (Event e : events) 
                     {
-                        for (DayOfWeek day : cur.onDays()) 
+                        for (DayOfWeek day : cur.getOnDays()) 
                         {      
                             if (e.getOnDays().contains(day))
                             {

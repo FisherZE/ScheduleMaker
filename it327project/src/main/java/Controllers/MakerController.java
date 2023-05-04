@@ -1,26 +1,26 @@
 package Controllers;
 
-import Classes.Course;
+import Classes.Class;
+import Schedule.Event;
 
 public class MakerController {
-    public Course findCourse(String param){
+    public Class findClass(String param){
         return null;
 
     }
 
-    public boolean addCourse(Course course){
+    public boolean addClass(Class class1){
         return false;
 
     }
 
-    public boolean editCourse(Course course){
+    public boolean editClass(Class class1){
         return false;
         
     }
 
-    public boolean removeCourse(Course course){
+    public static boolean removeClass(Class class1){
         return false;
-
     }
 
     public boolean addPreferences(String param){
@@ -38,12 +38,12 @@ public class MakerController {
 
     }
 
-    public boolean addEvent(){
+    public boolean addEvent(Event event){
         return false;
 
     }
 
-    public boolean removeEvent(){
+    public static boolean removeEvent(Event event){
         return false;
 
     }

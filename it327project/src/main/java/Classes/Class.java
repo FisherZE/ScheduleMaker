@@ -29,6 +29,10 @@ public abstract class Class{
         this.onDays = onDays;
     }
 
+    public void addDay(DayOfWeek day){
+        this.onDays.add(day);
+    }
+
     public int getStartTime() {
         return startTime;
     }

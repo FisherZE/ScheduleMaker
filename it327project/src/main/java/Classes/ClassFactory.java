@@ -17,9 +17,9 @@ public class ClassFactory {
         return newClass;
     }
 
-    public static Class createHSeminar(String courseId, String secId, ArrayList<DayOfWeek> onDays, int startTime, int endTime, int creditHours, String classType) {
+    public static Class createHSeminar(String courseId, String secId, boolean semHalf, ArrayList<DayOfWeek> onDays, int startTime, int endTime, int creditHours, String classType) {
         // create a new instance of a concrete implementation of the Class abstract class
-        Class newClass = new HSeminar(courseId, secId, false, onDays, startTime, endTime, creditHours, classType);
+        Class newClass = new HSeminar(courseId, secId, semHalf, onDays, startTime, endTime, creditHours, classType);
         return newClass;
     }
 }

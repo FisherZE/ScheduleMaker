@@ -11,9 +11,10 @@ public class Event {
         name = n;
         startTime = st;
         endTime = et;
+        onDays = new ArrayList<DayOfWeek>();
     }
     public int getStartTime(){
-        return getStartTime();
+        return startTime;
     }
     public int getEndTime(){
         return endTime;
@@ -24,5 +25,8 @@ public class Event {
     }
     public ArrayList<DayOfWeek> getOnDays(){
         return onDays;
+    }
+    public void addOnDay(DayOfWeek day){
+        onDays.add(day);
     }
 }

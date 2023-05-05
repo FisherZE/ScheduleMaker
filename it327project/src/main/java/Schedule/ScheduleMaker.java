@@ -26,8 +26,6 @@ import Classes.Class;
         maxCreditHours = 30;
         earliestTime = 0;
         latestTime = 2400;
-        
-        
     } 
 
     public static void generateSchedules(){

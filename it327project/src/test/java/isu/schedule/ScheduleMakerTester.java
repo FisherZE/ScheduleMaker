@@ -1,3 +1,5 @@
+package isu.schedule;
+
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import static org.junit.Assert.*;

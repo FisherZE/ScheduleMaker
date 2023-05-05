@@ -15,6 +15,11 @@ public class Course extends Class{
         this.courseId = courseId;
     }
 
+    @Override
+    public String toString(){
+        return this.courseId + " " + this.secNo;
+    }
+
     public String getCourseId() {
         return courseId;
     }
@@ -38,6 +43,7 @@ public class Course extends Class{
     public void setCourseType(String courseType) {
         this.courseType = courseType;
     }
+
     public String getIdentifier(){
         return this.courseId + this.secNo;
     }

@@ -14,6 +14,11 @@ public class HExploration extends Class{
     }
 
     @Override
+    public String toString(){
+        return this.explorationId;
+    }
+
+    @Override
     public String getIdentifier(){
         return this.explorationId;
     }

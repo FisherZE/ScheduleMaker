@@ -15,6 +15,11 @@ public class HSeminar extends Class{
         this.semesterHalf = semesterHalf;
     }
 
+    @Override
+    public String toString(){
+        return this.seminarId + " " + secId;
+    }
+
     public String getSeminarId() {
         return seminarId;
     }

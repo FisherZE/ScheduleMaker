@@ -19,6 +19,8 @@ public abstract class Class{
         this.classType = classType;
     }
 
+    public abstract String toString();
+
     public abstract String getIdentifier();
 
     public ArrayList<DayOfWeek> getOnDays() {

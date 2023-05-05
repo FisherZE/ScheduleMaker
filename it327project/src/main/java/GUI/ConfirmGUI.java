@@ -12,7 +12,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Classes.*;
 import Classes.Class;
 import Controllers.MakerController;
 import Schedule.*;

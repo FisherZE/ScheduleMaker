@@ -1,6 +1,7 @@
 package Schedule;
 
 import java.util.ArrayList;
+import Classes.Class;
 
 public class Schedule{
  private ArrayList<Class> classes;

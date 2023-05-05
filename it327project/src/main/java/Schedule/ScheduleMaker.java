@@ -109,7 +109,7 @@ import Classes.Class;
                         for (DayOfWeek day : cur.getOnDays()) 
                         {    
                             
-                            if (e.getgetOnDays().contains(day))
+                            if (e.getOnDays().contains(day))
                             {
                                 if ((cur.getStartTime() >= e.getStartTime() && cur.getStartTime() <= e.getEndTime())||(cur.getEndTime() >= e.getStartTime() && cur.getEndTime() <= e.getEndTime()))
                                 {

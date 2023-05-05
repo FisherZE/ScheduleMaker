@@ -191,7 +191,7 @@ import Classes.Class;
             }
 
         }
-        if (conflictingClass != null){
+        if (conflictingClass != null && !tie){
             return conflictingClass.toString();
         }else{
             return null;

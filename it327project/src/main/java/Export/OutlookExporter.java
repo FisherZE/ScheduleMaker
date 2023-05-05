@@ -1,5 +1,5 @@
 package Export;
-public class OutlookExporter {
+public class OutlookExporter extends Exporter{
     
 }
 

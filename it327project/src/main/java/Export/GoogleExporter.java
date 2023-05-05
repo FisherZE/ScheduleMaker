@@ -1,5 +1,5 @@
 package Export;
-public class GoogleExporter {
+public class GoogleExporter extends Exporter{
     
 }
 

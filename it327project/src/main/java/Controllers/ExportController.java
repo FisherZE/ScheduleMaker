@@ -3,6 +3,10 @@ package Controllers;
 import java.time.DayOfWeek;
 
 public class ExportController {
+    //Without mapping out the entire year with depth first search, this is the alternative way
+    //to create a weeks schedule with .ics files since they require a date
+    //If I had time to research more libraries and find one that could reliably get 
+    //current time I would
     public static String toDate(DayOfWeek d){ 
         if (d == DayOfWeek.MONDAY){
             return "20230501";

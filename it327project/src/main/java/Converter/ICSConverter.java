@@ -4,15 +4,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 
-import Classes.Class;
-import net.fortuna.ical4j.model.*;
-import net.fortuna.ical4j.model.property.DtStamp;
 import Schedule.Schedule;
-
+import Controllers.ExportController;
 public class ICSConverter extends Converter{
     private String version =    "VERSION:1.0\r\n";
     private String prodid =     "PRODID://You//\r\n";
@@ -27,18 +23,45 @@ public class ICSConverter extends Converter{
     private String DTEnd;
     private String Summary;
     private String[] fileComponents = new String[12];
-    private ArrayList<String> fileLocations = new ArrayList<>();
+    private static ArrayList<String> fileLocations = new ArrayList<>();
     private static final String endL = "\r\n";
     public ICSConverter(){
     }
     public void outputICS(Schedule schedule)
     {
+
         for(int i = 0; i <schedule.getClasses().size(); i++)
         {
            Summary = schedule.getClasses().get(i).getIdentifier()+endL;
            //check if class is before noon and add a preceding 0
-           DTStart = "T" + schedule.getClasses().get(i).getStartTime() + "00"+endL;
-           DTEnd = "DTEND:"+"T" + schedule.getClasses().get(i).getEndTime() + "00"+endL;
+           int j = 0;
+           String midPoint = "T";
+           while(j < schedule.getClasses().get(i).getOnDays().size())
+           {
+            if(schedule.getClasses().get(i).getStartTime() <= 959)
+            {
+                midPoint = "0" + midPoint;
+                DTStart = ExportController.toDate(schedule.getClasses().get(i).getOnDays().get(j))+midPoint + schedule.getClasses().get(i).getStartTime() + "00"+endL;
+                DTEnd = "DTEND:"+ExportController.toDate(schedule.getClasses().get(i).getOnDays().get(j))+midPoint + schedule.getClasses().get(i).getEndTime() + "00"+endL;
+                DTStamp = "DTSTAMP:"+DTStart;
+                 DTStart = "DTStart:" + DTStart;
+                fileComponents[0] = calBegin;
+                 fileComponents[1] = version;
+                 fileComponents[2] = prodid;
+                 fileComponents[3] = eventBegin;
+                 fileComponents[4] = UID;
+                 fileComponents[5] = DTStamp;
+                 fileComponents[6] = Organizer;
+                 fileComponents[7] = DTStart;
+                 fileComponents[8] = DTEnd;
+                 fileComponents[9] = "SUMMARY:"+Summary+endL;
+                 fileComponents[10] = eventEnd;
+                 fileComponents[11] = calEnd;
+                 write(Summary);
+                 j++;
+            }else{
+                DTStart = ExportController.toDate(schedule.getClasses().get(i).getOnDays().get(j))+"T" + schedule.getClasses().get(i).getStartTime() + "00"+endL;
+           DTEnd = "DTEND:"+ExportController.toDate(schedule.getClasses().get(i).getOnDays().get(j))+"T" + schedule.getClasses().get(i).getEndTime() + "00"+endL;
            DTStamp = "DTSTAMP:"+DTStart;
             DTStart = "DTStart:" + DTStart;
            fileComponents[0] = calBegin;
@@ -54,11 +77,15 @@ public class ICSConverter extends Converter{
             fileComponents[10] = eventEnd;
             fileComponents[11] = calEnd;
             write(Summary);
+            j++;
+            }
+           
         }
-        
+        }
    
-}
-public void write(String name){
+    }
+    public void write(String name)
+    {
     StringBuilder builder = new StringBuilder();
     builder.append(name);
     builder.append(".ics");
@@ -94,7 +121,7 @@ public void write(String name){
         e.printStackTrace();
     }
 }
-    public ArrayList<String> getFileLocations()
+    public static ArrayList<String> getFileLocations()
     {
         return fileLocations;
     }

@@ -2,6 +2,9 @@ package Controllers;
 
 import java.time.DayOfWeek;
 
+import Converter.CSVConverter;
+import Converter.Converter;
+import Converter.ICSConverter;
 import Schedule.Schedule;
 
 public class ExportController {
@@ -29,7 +32,15 @@ public class ExportController {
     }
 
     public static void downloadFile(String fileType, Schedule schedule){
-
+        if(fileType.equals("CSV")){
+            CSVConverter csv = new CSVConverter();
+            csv.outputCSV(schedule);
+            CSVConverter.getFileLocations().clear();
+        } else if (fileType.equals("ICS")){
+            ICSConverter ics = new ICSConverter();
+            ics.outputICS(schedule);
+            ICSConverter.getFileLocations().clear();
+        }
     }
 
 }

@@ -245,9 +245,16 @@ import Classes.Class;
         requiredCourses.remove(name);
     }
 
-    public static void addClass(Class c){
+    public static void addClass(Class c){ 
+        for (int i = 0; i < classes.size(); i++){
+            if (classes.get(i).getStartTime() >= c.getStartTime()){
+                classes.add(i, c);
+                return;
+            }
+        }
         classes.add(c);
     }
+
     public static void removeClass(Class c){
         classes.remove(c);
     }

@@ -13,9 +13,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Classes.Class;
 import Controllers.ExportController;
-import Controllers.MakerController;
 import Schedule.*;
 
 public class ExportGUI extends JFrame implements ActionListener{
@@ -31,13 +29,23 @@ public class ExportGUI extends JFrame implements ActionListener{
     private static JPanel emailPanel = new JPanel(new GridLayout(0, 2));
     private static JLabel emailLabel = new JLabel("Email");
     private static JTextField emailField = new JTextField("example@gmail.com");
-    private static JLabel FileTypeLabel = new JLabel("File Type");
-    private static JTextField FileTypeField = new JTextField("ex: ICS or CSV");
+
+    //Google Calender
+    private static JButton googleButton = new JButton("Create Google Calender File");
+    private static JPanel googlePanel = new JPanel(new GridLayout(0, 1));
+
+    //Apple Calender
+    private static JButton appleButton = new JButton("Create Apple Calender File");
+    private static JPanel applePanel = new JPanel(new GridLayout(0, 1));
+
+    //Outlook Calender
+    private static JButton outlookButton = new JButton("Create Outlook Calender File");
+    private static JPanel outlookPanel = new JPanel(new GridLayout(0, 1));
 
     //Download
     private static JButton downloadButton = new JButton("Download File");
     private static JPanel downloadPanel = new JPanel(new GridLayout(0, 2));
-    private static JLabel downloadLabel = new JLabel("Download");
+    private static JLabel downloadLabel = new JLabel("Download CSV File");
 
     public ExportGUI(Schedule sched){
         //Schedule
@@ -56,38 +64,54 @@ public class ExportGUI extends JFrame implements ActionListener{
         titlePanel.add(new JLabel("Export"));
 
         //Center Panel Setup
-        //Email
+        //Email - CSV
         emailButton.addActionListener(this);
         emailPanel.add(emailLabel);
         emailPanel.add(emailField);
-        emailPanel.add(FileTypeLabel);
-        emailPanel.add(FileTypeField);
         emailPanel.add(emailButton);
         centerPanel.add(emailPanel);
 
-        //Download
+        //Google Calender -ICS Exporter
+        googleButton.addActionListener(this);
+        googlePanel.add(googleButton);
+
+        //Apple Calender -ICS Exporter
+        appleButton.addActionListener(this);
+        applePanel.add(appleButton);
+
+        //Outlook Calender -ICS Exporter
+        outlookButton.addActionListener(this);
+        outlookPanel.add(outlookButton);
+
+        //Download -CSV
         downloadButton.addActionListener(this);
         downloadPanel.add(downloadLabel);
         downloadPanel.add(new JLabel());
-        downloadPanel.add(FileTypeLabel);
-        downloadPanel.add(FileTypeField);
         downloadPanel.add(downloadButton);
         centerPanel.add(downloadPanel);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == emailButton){
-            if(emailField.getText().equals("") || FileTypeField.getText().equals("")){
-                return;
+        try{
+            if(e.getSource() == emailButton){
+                if(emailField.getText().equals("")){
+                    return;
+                }
+                ExportController.exportEmail(emailField.getText(), "CSV", schedule);
+            } else if(e.getSource() == downloadButton){
+                ExportController.downloadFile("CSV", schedule);
+            } else if (e.getSource() == googleButton){
+                ExportController.downloadFile("ICS", schedule);
+            } else if (e.getSource() == appleButton){
+                ExportController.downloadFile("ICS", schedule);
+            } else if (e.getSource() == outlookButton){
+                ExportController.downloadFile("ICS", schedule);
             }
-            ExportController.exportEmail(emailField.getText(), FileTypeField.getText(), schedule);
-        } else if(e.getSource() == downloadButton){
-            if(FileTypeField.getText().equals("")){
-                return;
-            }
-            ExportController.downloadFile(FileTypeField.getText(), schedule);
+        } catch (Exception exception){
+            exception.printStackTrace();
         }
+        
     }
     
 }

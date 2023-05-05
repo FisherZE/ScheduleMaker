@@ -1,10 +1,17 @@
 package Controllers;
 
+import java.io.IOException;
 import java.time.DayOfWeek;
 
+import Converter.CSVConverter;
+import Converter.ICSConverter;
 import Schedule.Schedule;
 
 public class ExportController {
+    //Without mapping out the entire year with depth first search, this is the alternative way
+    //to create a weeks schedule with .ics files since they require a date
+    //If I had time to research more libraries and find one that could reliably get 
+    //current time I would
     public static String toDate(DayOfWeek d){ 
         if (d == DayOfWeek.MONDAY){
             return "20230501";
@@ -25,11 +32,19 @@ public class ExportController {
     }
 
     public static void exportEmail(String email, String fileType, Schedule Schedule){
-
+        //No ICS
     }
 
-    public static void downloadFile(String fileType, Schedule schedule){
-
+    public static void downloadFile(String fileType, Schedule schedule) throws IOException{
+        if(fileType.equals("CSV")){
+            CSVConverter csv = new CSVConverter();
+            csv.outputCSV(schedule);
+            CSVConverter.getFileLocations().clear();
+        } else if (fileType.equals("ICS")){
+            ICSConverter ics = new ICSConverter();
+            ics.outputICS(schedule);
+            ICSConverter.getFileLocations().clear();
+        }
     }
 
 }

@@ -1,6 +1,7 @@
-package Main;
+package Schedule; 
 import java.time.*;
 import java.util.ArrayList;
+import Classes.Class;
  public class ScheduleMaker
  {
     private static ArrayList<Schedule> schedules;
@@ -25,8 +26,6 @@ import java.util.ArrayList;
         maxCreditHours = 30;
         earliestTime = 0;
         latestTime = 2400;
-        
-        
     } 
 
     public static void generateSchedules(){
@@ -36,7 +35,7 @@ import java.util.ArrayList;
         ArrayList<Class> toRemove = new ArrayList<Class>();
         initloop:
         for (Class c: classList){
-            for (DayOfWeek day : c.onDays()){
+            for (DayOfWeek day : c.getOnDays()){
                 if (!(eligibleDays.contains(day))){
                     toRemove.add(c);
                     continue initloop;
@@ -91,10 +90,10 @@ import java.util.ArrayList;
                         {
                             continue mainloop;
                         }
-                        for (DayOfWeek day : cur.onDays()) 
+                        for (DayOfWeek day : cur.getOnDays()) 
                         {
                             // Checks for overlap between days
-                            if (c.onDays().contains(day))
+                            if (c.getOnDays().contains(day))
                             {
                                 if ((cur.getStartTime() >= c.getStartTime() && cur.getStartTime() <= c.getEndTime())||(cur.getEndTime() >= c.getStartTime() && cur.getEndTime() <= c.getEndTime()))
                                 {
@@ -106,8 +105,8 @@ import java.util.ArrayList;
                     // Checks for overlap with events
                     for (Event e : events) 
                     {
-                        System.out.print(cur.onDays());
-                        for (DayOfWeek day : cur.onDays()) 
+                        System.out.print(cur.getOnDays());
+                        for (DayOfWeek day : cur.getOnDays()) 
                         {    
                             
                             if (e.getOnDays().contains(day))

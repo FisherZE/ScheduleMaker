@@ -13,7 +13,7 @@ import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.model.property.DtStamp;
 import Schedule.Schedule;
 
-public class ICSConverter {
+public class ICSConverter extends Converter{
     private String version =    "VERSION:1.0\r\n";
     private String prodid =     "PRODID://You//\r\n";
     private String calBegin =   "BEGIN:VCALENDAR\r\n";
@@ -27,7 +27,7 @@ public class ICSConverter {
     private String DTEnd;
     private String Summary;
     private String[] fileComponents = new String[12];
-    private ArrayList<String> fileLocations;
+    private ArrayList<String> fileLocations = new ArrayList<>();
     private static final String endL = "\r\n";
     public ICSConverter(){
     }
@@ -36,9 +36,11 @@ public class ICSConverter {
         for(int i = 0; i <schedule.getClasses().size(); i++)
         {
            Summary = schedule.getClasses().get(i).getIdentifier()+endL;
+           //check if class is before noon and add a preceding 0
            DTStart = "T" + schedule.getClasses().get(i).getStartTime() + "00"+endL;
-           DTEnd = "T" + schedule.getClasses().get(i).getEndTime() + "00"+endL;
-           DTStamp = DTStart;
+           DTEnd = "DTEND:"+"T" + schedule.getClasses().get(i).getEndTime() + "00"+endL;
+           DTStamp = "DTSTAMP:"+DTStart;
+            DTStart = "DTStart:" + DTStart;
            fileComponents[0] = calBegin;
             fileComponents[1] = version;
             fileComponents[2] = prodid;
@@ -48,7 +50,7 @@ public class ICSConverter {
             fileComponents[6] = Organizer;
             fileComponents[7] = DTStart;
             fileComponents[8] = DTEnd;
-            fileComponents[9] = Summary;
+            fileComponents[9] = "SUMMARY:"+Summary+endL;
             fileComponents[10] = eventEnd;
             fileComponents[11] = calEnd;
             write(Summary);

@@ -2,6 +2,8 @@ package Controllers;
 
 import java.time.DayOfWeek;
 
+import Schedule.Schedule;
+
 public class ExportController {
     public static String toDate(DayOfWeek d){ 
         if (d == DayOfWeek.MONDAY){
@@ -20,6 +22,14 @@ public class ExportController {
             return "20230507";
         }
         
+    }
+
+    public static void exportEmail(String email, String fileType, Schedule Schedule){
+
+    }
+
+    public static void downloadFile(String fileType, Schedule schedule){
+
     }
 
 }

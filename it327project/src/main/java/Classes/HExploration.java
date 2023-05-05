@@ -3,6 +3,8 @@ package Classes;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 
+import Converter.CSVConverter;
+
 public class HExploration extends Class{
     private String explorationId;
     private ArrayList<String> meetingDays;
@@ -32,6 +34,7 @@ public class HExploration extends Class{
 
     public void setMeetingDays(ArrayList<String> meetingDays) {
         this.meetingDays = meetingDays;
+      
     }
 
 }

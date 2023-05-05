@@ -28,7 +28,7 @@ public class ExportController {
     }
 
     public static void exportEmail(String email, String fileType, Schedule Schedule){
-
+        //No ICS
     }
 
     public static void downloadFile(String fileType, Schedule schedule){

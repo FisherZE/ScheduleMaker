@@ -1,11 +1,10 @@
 package Export;
+import java.io.IOException;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
-import javax.mail.Authenticator;
-import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
@@ -17,85 +16,60 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import com.sun.mail.imap.protocol.MailboxInfo;
 
 import Converter.CSVConverter;
+import Schedule.Schedule;
 public class EmailExporter {
-    
-    public void sendEmail(CSVConverter converter, String destination)
-    {
-        // Recipient's email ID needs to be mentioned.
-      String to = destination;
-
-      // Sender's email ID needs to be mentioned
-      String from = "scheduleMaker312@gmail.com";
-
-      final String username = "scheduleMaker312@gmail.com";//change accordingly
-      final String password = "L0r3mIpsum";//change accordingly
-
-      // Assuming you are sending email through relay.jangosmtp.net
-      String host = "relay.jangosmtp.net";
-
-      Properties props = new Properties();
-      props.put("mail.smtp.auth", "true");
-      props.put("mail.smtp.starttls.enable", "true");
-      props.put("mail.smtp.host", host);
-      props.put("mail.smtp.port", "25");
-
-      // Get the Session object.
-      Session session = Session.getInstance(props,
-         new Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-               return new PasswordAuthentication(username, password);
-            }
-         });
-
-      try {
-         // Create a default MimeMessage object.
-         Message message = new MimeMessage(session);
-
-         // Set From: header field of the header.
-         message.setFrom(new InternetAddress(from));
-
-         // Set To: header field of the header.
-         message.setRecipients(Message.RecipientType.TO,
-            InternetAddress.parse(to));
-
-         // Set Subject: header field
-         message.setSubject("Testing Subject");
-
-         // Create the message part
-         BodyPart messageBodyPart = new MimeBodyPart();
-
-         // Now set the actual message
-         messageBodyPart.setText("This is message body");
-
-         // Create a multipar message
-         Multipart multipart = new MimeMultipart();
-
-         // Set text message part
-         multipart.addBodyPart(messageBodyPart);
-
-         // Part two is attachment
-         messageBodyPart = new MimeBodyPart();
-         String filename = converter.getFileLocations().get(0);
-         DataSource source = new FileDataSource(filename);
-         messageBodyPart.setDataHandler(new DataHandler(source));
-         messageBodyPart.setFileName(filename);
-         multipart.addBodyPart(messageBodyPart);
-
-         // Send the complete message parts
-         message.setContent(multipart);
-
-         // Send message
-         Transport.send(message);
-
-         System.out.println("Sent message successfully....");
-  
-      } catch (MessagingException e) {
-         throw new RuntimeException(e);
-      }
+ 
+   public void sendEmail(Schedule schedule, String destination) throws IOException {
+    String to = destination; // to address. It can be any like gmail, hotmail etc.
+    final String from = "schedulemaker312@gmail.com"; // from address. As this is using Gmail SMTP.
+    final String password = "ppfhiiwgirtvypwb"; // password for from mail address. 
+    String host = "smtp.gmail.com";
+    Properties prop = new Properties();
+    prop.put("mail.smtp.host", host);
+    prop.put("mail.smtp.port", "465");
+    prop.put("mail.smtp.ssl.enable", "true");
+    prop.put("mail.smtp.auth", "true");
    
+    Session session = Session.getInstance(prop, new javax.mail.Authenticator() {
+     protected PasswordAuthentication getPasswordAuthentication() {
+      return new PasswordAuthentication(from, password);
+     }
+    });
+   
+    try {
+   
+     Message message = new MimeMessage(session);
+     message.setFrom(new InternetAddress(from));
+     message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+     message.setSubject("Your Desired Schedule");
+      
+     String msg = "This email was automatically sent with your file as a .csv!";
+      
+     MimeBodyPart mimeBodyPart = new MimeBodyPart();
+     mimeBodyPart.setContent(msg, "text/html");
+       
+     Multipart multipart = new MimeMultipart();
+     multipart.addBodyPart(mimeBodyPart);
+      
+     MimeBodyPart attachmentBodyPart = new MimeBodyPart();
+     CSVConverter converter = new CSVConverter();
+     converter.outputCSV(schedule);
+     String fileName = CSVConverter.getFileLocations().get(0);
+     DataSource source = new FileDataSource(fileName);
+     attachmentBodyPart.setDataHandler(new DataHandler(source));
+     attachmentBodyPart.setFileName(fileName);
+     multipart.addBodyPart(attachmentBodyPart);
+     CSVConverter.getFileLocations().clear();
+     message.setContent(multipart);
+   
+     Transport.send(message);
+   
+     System.out.println("Mail successfully sent..");
+   
+    } catch (MessagingException e) {
+     e.printStackTrace();
     }
-}
-
+   }
+  }

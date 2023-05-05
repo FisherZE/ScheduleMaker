@@ -13,9 +13,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Classes.Class;
 import Controllers.ExportController;
-import Controllers.MakerController;
 import Schedule.*;
 
 public class ExportGUI extends JFrame implements ActionListener{
@@ -95,20 +93,25 @@ public class ExportGUI extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == emailButton){
-            if(emailField.getText().equals("")){
-                return;
+        try{
+            if(e.getSource() == emailButton){
+                if(emailField.getText().equals("")){
+                    return;
+                }
+                ExportController.exportEmail(emailField.getText(), "CSV", schedule);
+            } else if(e.getSource() == downloadButton){
+                ExportController.downloadFile("CSV", schedule);
+            } else if (e.getSource() == googleButton){
+                ExportController.downloadFile("ICS", schedule);
+            } else if (e.getSource() == appleButton){
+                ExportController.downloadFile("ICS", schedule);
+            } else if (e.getSource() == outlookButton){
+                ExportController.downloadFile("ICS", schedule);
             }
-            ExportController.exportEmail(emailField.getText(), "CSV", schedule);
-        } else if(e.getSource() == downloadButton){
-            ExportController.downloadFile("CSV", schedule);
-        } else if (e.getSource() == googleButton){
-            ExportController.downloadFile("ICS", schedule);
-        } else if (e.getSource() == appleButton){
-            ExportController.downloadFile("ICS", schedule);
-        } else if (e.getSource() == outlookButton){
-            ExportController.downloadFile("ICS", schedule);
+        } catch (Exception exception){
+            exception.printStackTrace();
         }
+        
     }
     
 }

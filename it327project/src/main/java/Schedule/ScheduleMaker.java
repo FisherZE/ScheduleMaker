@@ -257,6 +257,9 @@ import Classes.Class;
     public static void removeClass(Class c){
         classes.remove(c);
     }
+    public static void setScheduleList(ArrayList<Schedule> sch){
+        schedules = sch;
+    }
 
 
  }

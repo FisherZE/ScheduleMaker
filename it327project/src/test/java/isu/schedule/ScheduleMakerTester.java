@@ -1,3 +1,4 @@
+package isu.schedule;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import static org.junit.Assert.*;
@@ -19,7 +20,7 @@ public class ScheduleMakerTester{
        
     @Before
     public void startUp(){
-        ScheduleMaker tony = new ScheduleMaker();
+        ScheduleMaker.initialize();
         MWF = new ArrayList<DayOfWeek>();
         MWF.add(DayOfWeek.MONDAY);
         MWF.add(DayOfWeek.WEDNESDAY);
@@ -93,21 +94,21 @@ public class ScheduleMakerTester{
         boolean assertion = sch.size() == 0;
         assertTrue(assertion);
     }
-    //TODO rework test using factory
-    /* 
+    
+    
     @Test
     public void allOneSection(){
-        courseLog.add(new Course("COM212",MWF, 1200, 1350, 3));
-        courseLog.add(new Course("COM212",MWF, 900, 950, 3));
-        courseLog.add(new Course("COM212",MW, 1000, 1115, 3));
-        courseLog.add(new Course("COM212",TTh, 1000, 1050, 3));
-        courseLog.add(new Course("COM212",TTh, 1400, 1515, 3));
+        courseLog.add(ClassFactory.createCourse("COM212","1",MWF, 1200, 1350, 3,"Undergraduate","Course"));
+        courseLog.add(ClassFactory.createCourse("COM212","2",MWF, 900, 950, 3,"Undergraduate","Course"));
+        courseLog.add(ClassFactory.createCourse("COM212","3",MW, 1000, 1115, 3,"Undergraduate","Course"));
+        courseLog.add(ClassFactory.createCourse("COM212","4",TTh, 1000, 1050, 3,"Undergraduate","Course"));
+        courseLog.add(ClassFactory.createCourse("COM212","5",TTh, 1400, 1515, 3,"Undergraduate","Course"));
         ScheduleMaker.generateSchedules();
         ArrayList<Schedule> sch = ScheduleMaker.getSchedules();
         boolean assertion = sch.size() == 0;
         assertTrue(assertion);
     }
-    */
+    
     @Test
     public void generatesAnySchedules(){
         for(Class c : courseLog){

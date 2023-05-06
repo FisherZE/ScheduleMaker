@@ -1,5 +1,4 @@
 package Export;
-import java.io.IOException;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -20,8 +19,12 @@ import javax.mail.internet.MimeMultipart;
 import Converter.CSVConverter;
 import Schedule.Schedule;
 public class EmailExporter {
- 
-   public void sendEmail(Schedule schedule, String destination) throws IOException {
+   public void exportEmail(Schedule schedule, String destination)
+   {
+      sendEmail(schedule, destination);
+   }
+
+   public void sendEmail(Schedule schedule, String destination){
     String to = destination; // to address. It can be any like gmail, hotmail etc.
     final String from = "schedulemaker312@gmail.com"; // from address. As this is using Gmail SMTP.
     final String password = "ppfhiiwgirtvypwb"; // password for from mail address. 

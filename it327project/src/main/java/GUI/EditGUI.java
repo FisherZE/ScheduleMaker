@@ -86,7 +86,6 @@ public class EditGUI extends JFrame implements ActionListener{
         editClassButton.addActionListener(this);
         deleteClassButton.addActionListener(this);
 
-
         //Preference 
         preferenceEditPanel.add(new JLabel("Edit Preferences"));
         preferenceEditPanel.add(new JLabel(""));
@@ -112,7 +111,7 @@ public class EditGUI extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == editClassButton){
-            String[] params = {credField.getText(), startField.getText(), endField.getText()};
+            String[] params = {classNameField.getText(), credField.getText(), startField.getText(), endField.getText()};
             String[] days = onDaysField.getText().split(" ");
             ArrayList<DayOfWeek> onDays = new ArrayList<>();
             for (int i = 0; i < days.length; i++){

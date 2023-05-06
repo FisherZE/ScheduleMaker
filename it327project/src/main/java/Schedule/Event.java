@@ -1,3 +1,4 @@
+package Schedule;
 import java.util.ArrayList;
 import java.time.DayOfWeek;
 

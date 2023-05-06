@@ -1,4 +1,4 @@
-package sester.ben;
+package WebScraper;
 
 public class Course
 {

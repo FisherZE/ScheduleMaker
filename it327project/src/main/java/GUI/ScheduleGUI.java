@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import Schedule.Event;
 import Schedule.Schedule;
 import Classes.Class;
+import Controllers.MakerController;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,6 +29,7 @@ public class ScheduleGUI extends JFrame implements ActionListener {
     private static JPanel container = new JPanel(new BorderLayout());
     private static JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     private static JButton exportButton = new JButton("Export");
+    private static JButton deleteButton = new JButton("Delete Schedule");
     private static Schedule sched;
 
     public ScheduleGUI(Schedule schedule){
@@ -171,6 +173,8 @@ public class ScheduleGUI extends JFrame implements ActionListener {
         container.add(centerPanel, BorderLayout.CENTER);
 
         bottomPanel.add(exportButton);
+        bottomPanel.add(deleteButton);
+        deleteButton.addActionListener(this);
         exportButton.addActionListener(this);
         container.add(bottomPanel, BorderLayout.SOUTH);
     }
@@ -179,6 +183,9 @@ public class ScheduleGUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == exportButton){
             ExportGUI gui = new ExportGUI(sched);
+        } else if (e.getSource() == deleteButton){
+            MakerController.removeSchedule();
+            ScheduleListGUI.getFrame().validate();
         }
     }
     

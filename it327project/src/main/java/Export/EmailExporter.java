@@ -1,5 +1,4 @@
 package Export;
-import java.io.IOException;
 import java.util.Properties;
 
 import javax.activation.DataHandler;

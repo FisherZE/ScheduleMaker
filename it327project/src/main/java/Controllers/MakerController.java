@@ -20,7 +20,17 @@ public class MakerController {
 
     }
 
-    public boolean editClass(Class class1){
+    public boolean editClass(String[] arr, ArrayList<DayOfWeek> days){
+        //arr[0] is name and section
+        //loop through schedule maker and check class.toString
+        for(int i = 0; i < ScheduleMaker.getClasses().size(); i++)
+        {
+            if(ScheduleMaker.getClasses().get(i).toString().equals(arr[0]))
+            {
+                ScheduleMaker.removeClass(ScheduleMaker.getClasses().get(i));
+                return true;
+            }
+        }
         return false;
         
     }
@@ -31,7 +41,8 @@ public class MakerController {
        return true;
     }
 
-    public boolean addPreferences(String param){
+    public boolean addPreferences(String[] arr, ArrayList<DayOfWeek> days){
+        updatePreferences(arr, days);
         return false;
 
     }
@@ -86,10 +97,5 @@ public class MakerController {
         if (event == null) return false;
         return ScheduleMaker.removeEvent(event);
 
-    }
-
-    public boolean exportSchedule(){
-        return false;
-        
     }
 }

@@ -51,7 +51,9 @@ public class MakerController {
         if (!arr[3].equals("")){
             ScheduleMaker.setLatestTime(Integer.parseInt(arr[3]));
         }
-        ScheduleMaker.setEligibleDays(days);
+        if (days.size() != 0){
+            ScheduleMaker.setEligibleDays(days);
+        }
         return true;
                 
 

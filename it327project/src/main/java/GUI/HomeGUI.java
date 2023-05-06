@@ -49,6 +49,7 @@ public class HomeGUI extends JFrame implements ActionListener {
     private static JLabel daysLabel = new JLabel("What Days you want Classes");
     private static JLabel earlyLabel = new JLabel("Earliest Class Time");
     private static JLabel lateLabel = new JLabel("Latest Class Time");
+    private static JLabel onDaysLabel = new JLabel("What days you want Classes");
     private static JTextField minCredField = new JTextField("ex: 10");
     private static JTextField maxCredField = new JTextField("ex: 15");
     private static JTextField daysField = new JTextField("ex: M T W TH F");

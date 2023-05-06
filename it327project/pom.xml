@@ -25,13 +25,14 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
-    
+
     <dependency>
     <groupId>javax.mail</groupId>
     <artifactId>mail</artifactId>
     <version>1.4.7</version>
    </dependency>
   </dependencies>
+  
 
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->

@@ -65,6 +65,14 @@ public class HomeGUI extends JFrame implements ActionListener {
     private static JButton seminarButton = new JButton("Search Seminar");
     private static JButton explorationButton = new JButton("Search Exploration");
 
+    //Schedules
+    private static JPanel schedulesPanel = new JPanel(new GridLayout(0, 1));
+    private static JLabel scheduleLabel = new JLabel("View Schedules");
+    private static JButton scheduleButton = new JButton("View Schedules");
+
+    //Edit
+    private static JButton editButton = new JButton("Edit ScheduleMaker Data");
+
     public HomeGUI(){
         //Frame Setup
         frame.add(container);
@@ -140,6 +148,17 @@ public class HomeGUI extends JFrame implements ActionListener {
         classPanel.add(honorExplorationField);
         classPanel.add(explorationButton);
         explorationButton.addActionListener(this);
+
+        //Open SchedulesList GUI
+        schedulesPanel.add(scheduleLabel);
+        schedulesPanel.add(scheduleButton);
+        scheduleButton.addActionListener(this);
+        
+        //Edit Window
+        JPanel editPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        editButton.addActionListener(this);
+        editPanel.add(editButton);
+        container.add(editPanel, BorderLayout.SOUTH);
     }
 
     @Override
@@ -154,6 +173,10 @@ public class HomeGUI extends JFrame implements ActionListener {
             System.out.println("Seminar");
         } else if (e.getSource() == explorationButton){
             System.out.println("Exploration");
+        } else if (e.getSource() == scheduleButton){
+            ScheduleListGUI slGUI = new ScheduleListGUI();
+            System.out.println("View Schedules");
+
         }
     }
     

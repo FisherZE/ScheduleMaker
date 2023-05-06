@@ -70,6 +70,10 @@ public class ScheduleListGUI extends JFrame implements ActionListener{
             }
         }
     }
+
+    public static JFrame getFrame(){
+        return frame;
+    }
     
 }
 

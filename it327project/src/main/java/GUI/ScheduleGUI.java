@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -8,6 +9,7 @@ import javax.swing.JPanel;
 import Schedule.Event;
 import Schedule.Schedule;
 import Classes.Class;
+import Controllers.MakerController;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -25,8 +27,15 @@ public class ScheduleGUI extends JFrame implements ActionListener {
     private static JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     private static JPanel centerPanel = new JPanel(new GridLayout(0,6,0,0));
     private static JPanel container = new JPanel(new BorderLayout());
+    private static JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    private static JButton exportButton = new JButton("Export");
+    private static JButton deleteButton = new JButton("Delete Schedule");
+    private static Schedule sched;
 
     public ScheduleGUI(Schedule schedule){
+        //Schedule
+        sched = schedule;
+
         //Frame Setup
         frame.add(container);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -163,12 +172,21 @@ public class ScheduleGUI extends JFrame implements ActionListener {
         }
         container.add(centerPanel, BorderLayout.CENTER);
 
+        bottomPanel.add(exportButton);
+        bottomPanel.add(deleteButton);
+        deleteButton.addActionListener(this);
+        exportButton.addActionListener(this);
+        container.add(bottomPanel, BorderLayout.SOUTH);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        if(e.getSource() == exportButton){
+            ExportGUI gui = new ExportGUI(sched);
+        } else if (e.getSource() == deleteButton){
+            MakerController.removeSchedule();
+            ScheduleListGUI.getFrame().validate();
+        }
     }
     
 }

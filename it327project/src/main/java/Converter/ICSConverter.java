@@ -61,23 +61,23 @@ public class ICSConverter extends Converter{
                  j++;
             }else{
                 DTStart = ExportController.toDate(schedule.getClasses().get(i).getOnDays().get(j))+"T" + schedule.getClasses().get(i).getStartTime() + "00"+endL;
-           DTEnd = "DTEND:"+ExportController.toDate(schedule.getClasses().get(i).getOnDays().get(j))+"T" + schedule.getClasses().get(i).getEndTime() + "00"+endL;
-           DTStamp = "DTSTAMP:"+DTStart;
-            DTStart = "DTStart:" + DTStart;
-           fileComponents[0] = calBegin;
-            fileComponents[1] = version;
-            fileComponents[2] = prodid;
-            fileComponents[3] = eventBegin;
-            fileComponents[4] = UID;
-            fileComponents[5] = DTStamp;
-            fileComponents[6] = Organizer;
-            fileComponents[7] = DTStart;
-            fileComponents[8] = DTEnd;
-            fileComponents[9] = "SUMMARY:"+Summary+endL;
-            fileComponents[10] = eventEnd;
-            fileComponents[11] = calEnd;
-            write(Summary);
-            j++;
+                DTEnd = "DTEND:"+ExportController.toDate(schedule.getClasses().get(i).getOnDays().get(j))+"T" + schedule.getClasses().get(i).getEndTime() + "00"+endL;
+                DTStamp = "DTSTAMP:"+DTStart;
+                DTStart = "DTStart:" + DTStart;
+                fileComponents[0] = calBegin;
+                fileComponents[1] = version;
+                fileComponents[2] = prodid;
+                fileComponents[3] = eventBegin;
+                fileComponents[4] = UID;
+                fileComponents[5] = DTStamp;
+                fileComponents[6] = Organizer;
+                fileComponents[7] = DTStart;
+                fileComponents[8] = DTEnd;
+                fileComponents[9] = "SUMMARY:"+Summary+endL;
+                fileComponents[10] = eventEnd;
+                fileComponents[11] = calEnd;
+                write(Summary);
+                j++;
             }
            
         }

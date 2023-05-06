@@ -1,27 +1,27 @@
 package Export;
 
 public class ExporterFactory{
-    public Exporter createAppleCalendarExport(){
+    public static Exporter createAppleCalendarExport(){
         Exporter exporter = new AppleCalendarExporter();
         return exporter;
     }
 
-    public EmailExporter createEmailExporter(){
+    public static EmailExporter createEmailExporter(){
         EmailExporter exporter = new EmailExporter();
         return exporter;
     }
 
-    public Exporter createGoogleExporter(){
+    public static Exporter createGoogleExporter(){
         Exporter exporter = new GoogleExporter();
         return exporter;
     }
 
-    public Exporter createOutlookExporter(){
+    public static Exporter createOutlookExporter(){
         Exporter exporter = new OutlookExporter();
         return exporter;
     }
 
-    public Exporter createSpreadsheetExporter(){
+    public static Exporter createSpreadsheetExporter(){
         Exporter exporter = new SpreadsheetExporter();
         return exporter;
     }

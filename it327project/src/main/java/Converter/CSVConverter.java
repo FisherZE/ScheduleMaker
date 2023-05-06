@@ -12,7 +12,7 @@ public class CSVConverter extends Converter{
     private static ArrayList<String> fileLocations;
     public CSVConverter(){
     }
-    public void outputCSV(Schedule schedule) throws IOException
+    public void outputCSV(Schedule schedule) 
     {
         //set file location to users downloads and store that in the arraylist
         String home = System.getProperty("user.home");

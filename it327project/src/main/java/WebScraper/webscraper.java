@@ -54,7 +54,6 @@ public static void main(String[] args) throws FailingHttpStatusCodeException, Ma
     HtmlAnchor link = links.get(14); // the first search result is the 15th link on the page
     HtmlPage classPage = link.click();
     Class[] courses = parseResults(classPage);
-    System.out.println("Found the following classes: ");
     scan.close();
     System.exit(0);
 }

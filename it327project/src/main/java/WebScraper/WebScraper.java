@@ -23,7 +23,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTable;
 public class WebScraper 
 {
 
-public Class[] searchCourse(String query) throws FailingHttpStatusCodeException, MalformedURLException, IOException 
+public static Class[] searchCourse(String query) throws FailingHttpStatusCodeException, MalformedURLException, IOException 
 {
     WebClient client = new WebClient(); // instantiate new "browser"
 

@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import Schedule.Event;
 import Schedule.Schedule;
+import Schedule.ScheduleMaker;
 import Classes.Class;
 import Controllers.MakerController;
 
@@ -184,7 +185,7 @@ public class ScheduleGUI extends JFrame implements ActionListener {
         if(e.getSource() == exportButton){
             ExportGUI gui = new ExportGUI(sched);
         } else if (e.getSource() == deleteButton){
-            MakerController.removeSchedule();
+            ScheduleMaker.removeSchedule(sched);
             ScheduleListGUI.getFrame().validate();
         }
     }

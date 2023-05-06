@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -14,6 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 
 import Controllers.MakerController;
 
@@ -171,7 +174,11 @@ public class HomeGUI extends JFrame implements ActionListener {
         } else if (e.getSource() == prefButton){
             System.out.println("Preferences");
         } else if (e.getSource() == classButton){
-            MakerController.findClass(classNameField.getText());
+            try {
+                MakerController.findClass(classNameField.getText());
+            } catch (FailingHttpStatusCodeException | IOException e1) {
+                e1.printStackTrace();
+            }
             System.out.println("Course");
         } else if (e.getSource() == seminarButton){
             System.out.println("Seminar");

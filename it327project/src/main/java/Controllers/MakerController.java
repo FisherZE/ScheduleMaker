@@ -3,31 +3,44 @@ package Controllers;
 import Classes.Class;
 import Schedule.Event;
 import Schedule.ScheduleMaker;
+import WebScraper.WebScraper;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+
 public class MakerController {
-    public Class findClass(String param){
-        return null;
+    public static void findClass(String param) throws FailingHttpStatusCodeException, MalformedURLException, IOException{
+        Class[] classes = WebScraper.searchCourse(param);
+        for (Class class1 : classes){
+            MakerController.addClass(class1);
+        }
 
     }
 
-    public boolean addClass(Class class1){
+    public static boolean addClass(Class class1){
         if (class1 == null) return false;
         ScheduleMaker.addClass(class1);
         return true;
 
     }
 
-    public boolean editClass(String[] arr, ArrayList<DayOfWeek> days){
+    public static boolean editClass(String[] arr, ArrayList<DayOfWeek> days){
         //arr[0] is name and section
         //loop through schedule maker and check class.toString
         for(int i = 0; i < ScheduleMaker.getClasses().size(); i++)
         {
             if(ScheduleMaker.getClasses().get(i).toString().equals(arr[0]))
             {
+                Class c = ScheduleMaker.getClasses().get(i);
+                c.setCreditHours(Integer.parseInt(arr[1]));
+                c.setStartTime(Integer.parseInt(arr[2]));
+                c.setEndTime(Integer.parseInt(arr[3]));
                 ScheduleMaker.removeClass(ScheduleMaker.getClasses().get(i));
+                ScheduleMaker.addClass(c);
                 return true;
             }
         }
@@ -35,10 +48,16 @@ public class MakerController {
         
     }
 
-    public static boolean removeClass(Class class1){
-        if (class1 == null) return false;
-       ScheduleMaker.removeClass(class1);
-       return true;
+    public static boolean removeClass(String arr){
+        for(int i = 0; i < ScheduleMaker.getClasses().size(); i++)
+        {
+            if(ScheduleMaker.getClasses().get(i).toString().equals(arr))
+            {
+                ScheduleMaker.removeClass(ScheduleMaker.getClasses().get(i));
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean addPreferences(String[] arr, ArrayList<DayOfWeek> days){
@@ -47,7 +66,7 @@ public class MakerController {
 
     }
 
-    public boolean updatePreferences(String[] arr, ArrayList<DayOfWeek> days){
+    public static boolean updatePreferences(String[] arr, ArrayList<DayOfWeek> days){
         if (arr.length != 4) return false;
         if (!arr[0].equals("")){
             ScheduleMaker.setMinCreditHours(Integer.parseInt(arr[0]));
@@ -67,10 +86,9 @@ public class MakerController {
         }
         return true;
                 
-
     }
 
-    public boolean deletePreferences(){
+    public static boolean deletePreferences(){
         ScheduleMaker.setMinCreditHours(8);
         ScheduleMaker.setMaxCreditHours(30);
         ScheduleMaker.setEarliestTime(0);

@@ -274,5 +274,9 @@ import Classes.Class;
 
     }
 
+    public static void removeSchedule(Schedule sched){
+        schedules.remove(sched);
+    }
+
 
  }

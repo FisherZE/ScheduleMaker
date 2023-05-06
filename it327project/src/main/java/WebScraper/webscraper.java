@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 import java.util.Scanner;
+import Classes.Class;
+import Classes.Course;
+import java.util.ArrayList;
+import java.time.DayOfWeek;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -49,22 +53,18 @@ public static void main(String[] args) throws FailingHttpStatusCodeException, Ma
     List<HtmlAnchor> links = resultsPage.getAnchors();
     HtmlAnchor link = links.get(14); // the first search result is the 15th link on the page
     HtmlPage classPage = link.click();
-    Course[] courses = parseResults(classPage);
+    Class[] courses = parseResults(classPage);
     System.out.println("Found the following classes: ");
-    for (int i = 0; i < courses.length; i++)
-    {
-        courses[i].display();
-    }
     scan.close();
     System.exit(0);
 }
 
 
 // private method to read in the results of the search and return a list of player objects
-private static Course[] parseResults(HtmlPage page)
+private static Class[] parseResults(HtmlPage page)
 {
-    boolean gradCredit = false;
-    boolean onDays[] = {false, false, false, false, false, false, false};
+    String gradCredit = "Undergraduate";
+    ArrayList<DayOfWeek> onDays = new ArrayList<DayOfWeek>();
     int startTime;
     int endTime;
     int creditHours;
@@ -83,7 +83,7 @@ private static Course[] parseResults(HtmlPage page)
     // grad credit
     String pageText = page.asText();
     if (pageText.contains("Graduate Level Course"))
-    { gradCredit = true;}
+    { gradCredit = "Graduate";}
     //System.out.println("grad credit = " + gradCredit);
 
     // courseNo
@@ -119,11 +119,11 @@ private static Course[] parseResults(HtmlPage page)
         String sectionInfo = pageText.substring(pageText.indexOf(secNo),pageText.indexOf(secNo)+70);
         //System.out.println(sectionInfo);
         // onDays
-        if (sectionInfo.contains(" M ")) { onDays[1] = true;}
-        if (sectionInfo.contains(" T ")) { onDays[2] = true;}
-        if (sectionInfo.contains(" W ")) { onDays[3] = true;}
-        if (sectionInfo.contains(" Th ")) { onDays[4] = true;}
-        if (sectionInfo.contains(" F ")) { onDays[5] = true;}
+        if (sectionInfo.contains(" M ")) { onDays.add(DayOfWeek.MONDAY);}
+        if (sectionInfo.contains(" T ")) { onDays.add(DayOfWeek.TUESDAY);}
+        if (sectionInfo.contains(" W ")) { onDays.add(DayOfWeek.WEDNESDAY);}
+        if (sectionInfo.contains(" Th ")) { onDays.add(DayOfWeek.THURSDAY);}
+        if (sectionInfo.contains(" F ")) { onDays.add(DayOfWeek.FRIDAY);}
 
         // startTime
         String startTimeString = sectionInfo.substring(sectionInfo.indexOf(":")+1);
@@ -199,7 +199,8 @@ private static Course[] parseResults(HtmlPage page)
         }
         endTime = Integer.parseInt(fullString);
         //System.out.println("endTime = "+ endTime);
-        courses[i - 1] = new Course(courseNo, secNo, gradCredit, creditHours, startTime, endTime, onDays);
+        courses[i - 1] = new Course(courseNo, secNo, onDays, startTime, endTime, creditHours, gradCredit, "Lecture"  );
+        onDays.clear();
     }
 
 

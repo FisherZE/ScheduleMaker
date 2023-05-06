@@ -22,7 +22,7 @@ import Classes.Class;
         eligibleDays = new ArrayList<DayOfWeek>(); 
         classes = new ArrayList<Class>();
         requiredCourses = new ArrayList<String>();
-        minCreditHours = 8;
+        minCreditHours = 0;
         maxCreditHours = 30;
         earliestTime = 0;
         latestTime = 2400;
@@ -139,11 +139,11 @@ import Classes.Class;
             }
             
             // Checks to see if the current schedule meets user credit hour preferences
-            
-            if (cred >= minCreditHours && cred <= maxCreditHours && includedRequirements == requiredCourses.size())
+            newSched.setCredithours(cred);
+            if ((cred >= minCreditHours && cred <= maxCreditHours) && (includedRequirements == requiredCourses.size()))
             {
                 schedules.add(newSched);
-            }     
+            }      
                           
         }        
         

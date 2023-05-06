@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 
 import Controllers.MakerController;
+import Schedule.ScheduleMaker;
 
 public class HomeGUI extends JFrame implements ActionListener {
     //Basic variable Setup
@@ -159,6 +160,7 @@ public class HomeGUI extends JFrame implements ActionListener {
         schedulesPanel.add(scheduleLabel);
         schedulesPanel.add(scheduleButton);
         scheduleButton.addActionListener(this);
+        centerPanel.add(schedulesPanel);
         
         //Edit Window
         JPanel editPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -185,6 +187,7 @@ public class HomeGUI extends JFrame implements ActionListener {
         } else if (e.getSource() == explorationButton){
             System.out.println("Exploration");
         } else if (e.getSource() == scheduleButton){
+            ScheduleMaker.generateSchedules();
             ScheduleListGUI slGUI = new ScheduleListGUI();
             System.out.println("View Schedules");
 

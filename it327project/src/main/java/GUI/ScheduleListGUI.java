@@ -29,6 +29,7 @@ public class ScheduleListGUI extends JFrame implements ActionListener{
      private static ArrayList<Schedule> schedules = ScheduleMaker.getSchedules();
 
      public ScheduleListGUI(){
+        ArrayList<Schedule> s = schedules;
         frame.add(container);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();

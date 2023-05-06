@@ -14,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Controllers.ExportController;
+import Export.Exporter;
+import Export.ExporterFactory;
 import Schedule.*;
 
 public class ExportGUI extends JFrame implements ActionListener{
@@ -102,11 +104,14 @@ public class ExportGUI extends JFrame implements ActionListener{
             } else if(e.getSource() == downloadButton){
                 ExportController.downloadFile("CSV", schedule);
             } else if (e.getSource() == googleButton){
-                ExportController.downloadFile("ICS", schedule);
+                Exporter export = ExporterFactory.createGoogleExporter();
+                export.callConverter(schedule);
             } else if (e.getSource() == appleButton){
-                ExportController.downloadFile("ICS", schedule);
+                Exporter export = ExporterFactory.createAppleCalendarExport();
+                export.callConverter(schedule);
             } else if (e.getSource() == outlookButton){
-                ExportController.downloadFile("ICS", schedule);
+                Exporter export = ExporterFactory.createOutlookExporter();
+                export.callConverter(schedule);
             }
         } catch (Exception exception){
             exception.printStackTrace();

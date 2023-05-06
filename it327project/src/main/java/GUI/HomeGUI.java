@@ -70,6 +70,9 @@ public class HomeGUI extends JFrame implements ActionListener {
     private static JLabel scheduleLabel = new JLabel("View Schedules");
     private static JButton scheduleButton = new JButton("View Schedules");
 
+    //Edit
+    private static JButton editButton = new JButton("Edit ScheduleMaker Data");
+
     public HomeGUI(){
         //Frame Setup
         frame.add(container);
@@ -150,6 +153,12 @@ public class HomeGUI extends JFrame implements ActionListener {
         schedulesPanel.add(scheduleLabel);
         schedulesPanel.add(scheduleButton);
         scheduleButton.addActionListener(this);
+        
+        //Edit Window
+        JPanel editPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        editButton.addActionListener(this);
+        editPanel.add(editButton);
+        container.add(editPanel, BorderLayout.SOUTH);
     }
 
     @Override

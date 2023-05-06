@@ -1,4 +1,4 @@
-package Schedule; 
+package Schedule;
 import java.time.*;
 import java.util.ArrayList;
 import Classes.Class;
@@ -245,7 +245,7 @@ import Classes.Class;
         requiredCourses.remove(name);
     }
 
-    public static void addClass(Class c){ 
+    public static void addClass(Class c){
         for (int i = 0; i < classes.size(); i++){
             if (classes.get(i).getStartTime() >= c.getStartTime()){
                 classes.add(i, c);
@@ -254,9 +254,11 @@ import Classes.Class;
         }
         classes.add(c);
     }
-
     public static void removeClass(Class c){
         classes.remove(c);
+    }
+    public static void setScheduleList(ArrayList<Schedule> sch){
+        schedules = sch;
     }
 
 

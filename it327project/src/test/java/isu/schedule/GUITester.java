@@ -49,7 +49,7 @@ public class GUITester {
         scheds.add(sched);
         sched.setEvents(events);
         sched.setClasses(classes);
-        ScheduleMaker.setSchedules(scheds);
+        ScheduleMaker.setScheduleList(scheds);
     }
 
     @Test

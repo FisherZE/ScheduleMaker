@@ -2,6 +2,10 @@ package Controllers;
 
 import Classes.Class;
 import Schedule.Event;
+import Schedule.ScheduleMaker;
+
+import java.time.DayOfWeek;
+import java.util.ArrayList;
 
 public class MakerController {
     public Class findClass(String param){
@@ -10,7 +14,9 @@ public class MakerController {
     }
 
     public boolean addClass(Class class1){
-        return false;
+        if (class1 == null) return false;
+        ScheduleMaker.addClass(class1);
+        return true;
 
     }
 
@@ -20,7 +26,9 @@ public class MakerController {
     }
 
     public static boolean removeClass(Class class1){
-        return false;
+        if (class1 == null) return false;
+       ScheduleMaker.removeClass(class1);
+       return true;
     }
 
     public boolean addPreferences(String param){
@@ -28,23 +36,53 @@ public class MakerController {
 
     }
 
-    public boolean updatePreferences(String param){
-        return false;
+    public boolean updatePreferences(String[] arr, ArrayList<DayOfWeek> days){
+        if (arr.length != 4) return false;
+        if (!arr[0].equals("")){
+            ScheduleMaker.setMinCreditHours(Integer.parseInt(arr[0]));
+        }
+        if (!arr[1].equals("")){
+            ScheduleMaker.setMaxCreditHours(Integer.parseInt(arr[1]));
+        }
+        if (!arr[2].equals("")){
+            ScheduleMaker.setEarliestTime(Integer.parseInt(arr[2]));
+
+        }
+        if (!arr[3].equals("")){
+            ScheduleMaker.setLatestTime(Integer.parseInt(arr[3]));
+        }
+        ScheduleMaker.setEligibleDays(days);
+        return true;
+                
 
     }
 
     public boolean deletePreferences(){
-        return false;
+        ScheduleMaker.setMinCreditHours(8);
+        ScheduleMaker.setMaxCreditHours(30);
+        ScheduleMaker.setEarliestTime(0);
+        ScheduleMaker.setLatestTime(2400);
+        ArrayList<DayOfWeek> days = new ArrayList<DayOfWeek>();
+        days.add(DayOfWeek.MONDAY);
+        days.add(DayOfWeek.TUESDAY);
+        days.add(DayOfWeek.WEDNESDAY);
+        days.add(DayOfWeek.THURSDAY);
+        days.add(DayOfWeek.FRIDAY);
+        ScheduleMaker.setEligibleDays(days);
+        return true;
 
     }
 
     public boolean addEvent(Event event){
-        return false;
+        if (event == null) return false;
+        ScheduleMaker.addEvent(event);
+        return true;
 
     }
 
     public static boolean removeEvent(Event event){
-        return false;
+        if (event == null) return false;
+        return ScheduleMaker.removeEvent(event);
 
     }
 

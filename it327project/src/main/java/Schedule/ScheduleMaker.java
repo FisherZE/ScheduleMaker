@@ -26,6 +26,11 @@ import Classes.Class;
         maxCreditHours = 30;
         earliestTime = 0;
         latestTime = 2400;
+        eligibleDays.add(DayOfWeek.MONDAY);
+        eligibleDays.add(DayOfWeek.TUESDAY);
+        eligibleDays.add(DayOfWeek.WEDNESDAY);
+        eligibleDays.add(DayOfWeek.THURSDAY);
+        eligibleDays.add(DayOfWeek.FRIDAY);
     } 
 
     public static void generateSchedules(){
@@ -259,6 +264,10 @@ import Classes.Class;
     }
     public static void setScheduleList(ArrayList<Schedule> sch){
         schedules = sch;
+    }
+    public static void setEligibleDays(ArrayList<DayOfWeek> days){
+        eligibleDays = days;
+
     }
 
 

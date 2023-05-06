@@ -259,6 +259,10 @@ import Classes.Class;
         }
         classes.add(c);
     }
+    
+    public static ArrayList<Class> getClasses(){
+        return classes;
+    }
     public static void removeClass(Class c){
         classes.remove(c);
     }

@@ -12,6 +12,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import Controllers.ExportController;
 import Export.Exporter;
@@ -57,7 +59,13 @@ public class ExportGUI extends JFrame implements ActionListener{
         frame.add(container);
         container.add(titlePanel, BorderLayout.NORTH);
         container.add(centerPanel, BorderLayout.CENTER);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                // Do something before closing the frame
+                frame.setVisible(false);
+                frame.dispose();
+            }
+        });
         frame.pack();
         frame.setMinimumSize(new Dimension(700, 900));
         frame.setVisible(true);
@@ -76,14 +84,17 @@ public class ExportGUI extends JFrame implements ActionListener{
         //Google Calender -ICS Exporter
         googleButton.addActionListener(this);
         googlePanel.add(googleButton);
+        centerPanel.add(googlePanel);
 
         //Apple Calender -ICS Exporter
         appleButton.addActionListener(this);
         applePanel.add(appleButton);
+        centerPanel.add(applePanel);
 
         //Outlook Calender -ICS Exporter
         outlookButton.addActionListener(this);
         outlookPanel.add(outlookButton);
+        centerPanel.add(outlookPanel);
 
         //Download -CSV
         downloadButton.addActionListener(this);

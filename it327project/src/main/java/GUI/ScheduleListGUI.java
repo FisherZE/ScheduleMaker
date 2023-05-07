@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -31,9 +33,15 @@ public class ScheduleListGUI extends JFrame implements ActionListener{
      public ScheduleListGUI(){
         ArrayList<Schedule> s = schedules;
         frame.add(container);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                // Do something before closing the frame
+                frame.setVisible(false);
+                frame.dispose();
+            }
+        });
         frame.pack();
-        frame.setMinimumSize(new Dimension(450, 300));
+        frame.setMinimumSize(new Dimension(900, 800));
         frame.setVisible(true);
         container.add(titlePanel, BorderLayout.NORTH);
         container.add(centerPanel, BorderLayout.CENTER);

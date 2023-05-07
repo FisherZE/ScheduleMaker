@@ -19,6 +19,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,7 +41,14 @@ public class ScheduleGUI extends JFrame implements ActionListener {
 
         //Frame Setup
         frame.add(container);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                // Do something before closing the frame
+                frame.setVisible(false);
+                frame.getContentPane().removeAll();
+                frame.dispose();
+            }
+        });
         frame.pack();
         frame.setMinimumSize(new Dimension(450, 300));
         frame.setVisible(true);
@@ -179,6 +188,7 @@ public class ScheduleGUI extends JFrame implements ActionListener {
         exportButton.addActionListener(this);
         container.add(bottomPanel, BorderLayout.SOUTH);
     }
+    
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -187,6 +197,7 @@ public class ScheduleGUI extends JFrame implements ActionListener {
         } else if (e.getSource() == deleteButton){
             ScheduleMaker.removeSchedule(sched);
             ScheduleListGUI.getFrame().validate();
+            frame.repaint();
         }
     }
     

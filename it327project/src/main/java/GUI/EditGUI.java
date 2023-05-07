@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 
@@ -25,12 +27,11 @@ public class EditGUI extends JFrame implements ActionListener{
     private static JPanel container = new JPanel(new BorderLayout());
     private static JPanel titlePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     private static JPanel centerPanel = new JPanel(new GridLayout(0,1));
-    private static JScrollPane scrollPane = new JScrollPane(centerPanel);
     private static JPanel classEditPanel = new JPanel(new GridLayout(0, 2));
     private static JPanel preferenceEditPanel = new JPanel(new GridLayout(0, 2));
 
     //Class edit
-    private static JButton editClassButton = new JButton("Edit Preferences");
+    private static JButton editClassButton = new JButton("Edit Class");
     private static JLabel className = new JLabel("Class Name");
     private static JLabel credLabel = new JLabel("Credit Hours");
     private static JLabel startLabel = new JLabel("Start Time");
@@ -61,8 +62,14 @@ public class EditGUI extends JFrame implements ActionListener{
         //Frame setup
         frame.add(container);
         container.add(titlePanel, BorderLayout.NORTH);
-        container.add(scrollPane, BorderLayout.CENTER);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        container.add(centerPanel, BorderLayout.CENTER);
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                // Do something before closing the frame
+                frame.setVisible(false);
+                frame.dispose();
+            }
+        });
         frame.pack();
         frame.setMinimumSize(new Dimension(700, 900));
         frame.setVisible(true);
@@ -82,7 +89,7 @@ public class EditGUI extends JFrame implements ActionListener{
         classEditPanel.add(onDaysField);
         classEditPanel.add(editClassButton);
         classEditPanel.add(deleteClassButton);
-        centerPanel.add(preferenceEditPanel);
+        centerPanel.add(classEditPanel);
         editClassButton.addActionListener(this);
         deleteClassButton.addActionListener(this);
 

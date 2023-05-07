@@ -33,12 +33,19 @@ public class MakerController {
         //loop through schedule maker and check class.toString
         for(int i = 0; i < ScheduleMaker.getClasses().size(); i++)
         {
+            System.out.println(ScheduleMaker.getClasses().get(i).toString());
             if(ScheduleMaker.getClasses().get(i).toString().equals(arr[0]))
             {
                 Class c = ScheduleMaker.getClasses().get(i);
-                c.setCreditHours(Integer.parseInt(arr[1]));
-                c.setStartTime(Integer.parseInt(arr[2]));
-                c.setEndTime(Integer.parseInt(arr[3]));
+                if(!arr[1].equals("")){
+                    c.setCreditHours(Integer.parseInt(arr[1]));
+                }
+                if (!arr[2].equals("")){
+                    c.setStartTime(Integer.parseInt(arr[2]));
+                }
+                if (!arr[3].equals("")){
+                    c.setEndTime(Integer.parseInt(arr[3]));
+                }
                 ScheduleMaker.removeClass(ScheduleMaker.getClasses().get(i));
                 ScheduleMaker.addClass(c);
                 return true;
@@ -76,7 +83,6 @@ public class MakerController {
         }
         if (!arr[2].equals("")){
             ScheduleMaker.setEarliestTime(Integer.parseInt(arr[2]));
-
         }
         if (!arr[3].equals("")){
             ScheduleMaker.setLatestTime(Integer.parseInt(arr[3]));
@@ -89,7 +95,7 @@ public class MakerController {
     }
 
     public static boolean deletePreferences(){
-        ScheduleMaker.setMinCreditHours(8);
+        ScheduleMaker.setMinCreditHours(3);
         ScheduleMaker.setMaxCreditHours(30);
         ScheduleMaker.setEarliestTime(0);
         ScheduleMaker.setLatestTime(2400);

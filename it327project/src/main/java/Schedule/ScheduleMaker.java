@@ -2,6 +2,7 @@ package Schedule;
 import java.time.*;
 import java.util.ArrayList;
 import Classes.Class;
+import Classes.Course;
  public class ScheduleMaker
  {
     private static ArrayList<Schedule> schedules;
@@ -22,7 +23,7 @@ import Classes.Class;
         eligibleDays = new ArrayList<DayOfWeek>(); 
         classes = new ArrayList<Class>();
         requiredCourses = new ArrayList<String>();
-        minCreditHours = 0;
+        minCreditHours = 1;
         maxCreditHours = 30;
         earliestTime = 0;
         latestTime = 2400;
@@ -85,13 +86,13 @@ import Classes.Class;
                 if (mask[j] == 1)
                 {
                     //Reassigns the current class for easier access
-                   Class cur = classList.get(j);
+                   Course cur = (Course) classList.get(j);
                  
                     for (Class c : newSched.getClasses()) 
                     {
                         // Checks to see if a class with the same identifier is alreadly present in the current schedule 
                         // (Prevents duplicate classes from different sections)
-                        if (cur.getIdentifier().equals(c.getIdentifier()))
+                        if (cur.getCourseId().equals(((Course) c).getCourseId()))
                         {
                             continue mainloop;
                         }
@@ -125,7 +126,7 @@ import Classes.Class;
                             }
                         }
                     }       
-                    if (requiredCourses.contains(cur.getIdentifier())){
+                    if (requiredCourses.contains(((Course) cur).getCourseId())){
                         includedRequirements++;
                     }      
                     newSched.getClasses().add(cur);
@@ -140,7 +141,8 @@ import Classes.Class;
             
             // Checks to see if the current schedule meets user credit hour preferences
             newSched.setCredithours(cred);
-            if ((cred >= minCreditHours && cred <= maxCreditHours) && (includedRequirements == requiredCourses.size()))
+            boolean flag = (cred >= minCreditHours && cred <=maxCreditHours && includedRequirements == requiredCourses.size());
+            if (flag)
             {
                 schedules.add(newSched);
             }      

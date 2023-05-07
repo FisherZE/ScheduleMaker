@@ -42,8 +42,8 @@ public class HomeGUI extends JFrame implements ActionListener {
     private static JLabel labelEEnd = new JLabel("End Time");
     private static JLabel labelEOn = new JLabel("Days It Occurs");
     private static JTextField eNameInput = new JTextField("Name");
-    private static JTextField eStartInput = new JTextField("ex :13:00");
-    private static JTextField eEndInput = new JTextField("ex: 13:30");
+    private static JTextField eStartInput = new JTextField("ex :1300");
+    private static JTextField eEndInput = new JTextField("ex: 1330");
     private static JTextField eOnInput= new JTextField("M T W TH F");
     private static JButton addEvent = new JButton("Create Event");
 
@@ -57,8 +57,8 @@ public class HomeGUI extends JFrame implements ActionListener {
     private static JTextField minCredField = new JTextField("ex: 10");
     private static JTextField maxCredField = new JTextField("ex: 15");
     private static JTextField daysField = new JTextField("ex: M T W TH F");
-    private static JTextField earlyField = new JTextField("ex: 9:00");
-    private static JTextField lateField = new JTextField("ex: 17:00");
+    private static JTextField earlyField = new JTextField("ex: 900");
+    private static JTextField lateField = new JTextField("ex: 1700");
     private static JButton prefButton = new JButton("Add Preferences");
 
     //Class
@@ -191,6 +191,8 @@ public class HomeGUI extends JFrame implements ActionListener {
             ScheduleListGUI slGUI = new ScheduleListGUI();
             System.out.println("View Schedules");
 
+        } else if (e.getSource() == editButton){
+            EditGUI gui = new EditGUI();
         }
     }
     

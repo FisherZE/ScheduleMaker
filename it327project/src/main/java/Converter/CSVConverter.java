@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 
 public class CSVConverter extends Converter{
-    private static ArrayList<String> fileLocations;
+    private static ArrayList<String> fileLocations = new ArrayList<>();
     public CSVConverter(){
     }
     public void outputCSV(Schedule schedule) 

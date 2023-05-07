@@ -30,8 +30,7 @@ public static Class[] searchCourse(String query) throws FailingHttpStatusCodeExc
     // I have no idea what these do but if they aren't here the program throws an exception and dies
     client.getOptions().setCssEnabled(false); 
     client.getOptions().setJavaScriptEnabled(false);
-    
-    Scanner scan = new Scanner(System.in);
+	
     HtmlPage searchPage = client.getPage("https://coursefinder.illinoisstate.edu/"); // connect to search page
 
     // find the form where the name is entered. The form is the only form on the page, so .get(0) will suffice
@@ -52,7 +51,6 @@ public static Class[] searchCourse(String query) throws FailingHttpStatusCodeExc
     HtmlAnchor link = links.get(14); // the first search result is the 15th link on the page
     HtmlPage classPage = link.click();
     Class[] courses = parseResults(classPage);
-    scan.close();
     return courses;
     
 }

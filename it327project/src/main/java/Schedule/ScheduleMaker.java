@@ -1,10 +1,13 @@
 package Schedule;
 import java.time.*;
 import java.util.ArrayList;
+
 import Classes.Class;
 import Classes.Course;
+
  public class ScheduleMaker
  {
+    
     private static ArrayList<Schedule> schedules;
     private static ArrayList<DayOfWeek> eligibleDays;
     private static ArrayList<Event> events;
@@ -181,8 +184,9 @@ import Classes.Course;
         for (Class c : classes){
             int conflict = 0;
             for (Class c2 : classes){
-                if (!c2.getCourseId.equals(c.getCourseId())){
-                    if ((c.getStartTime() >= c2.getStartTime() && c.getStartTime() <= c2.getEndTime())||(c.getEndTime() >= c2.getStartTime() && c.getEndTime() <= c2.getEndTime())){
+                if (!((Course)c2).getCourseId().equals(((Course) c).getCourseId())){
+                    if ((c.getStartTime() >= c2.getStartTime() && c.getStartTime() <= c2.getEndTime())||(c.getEndTime() >= c2.getStartTime() && c.getEndTime() <= c2.getEndTime()) || ((c2.getStartTime() >= c.getStartTime() && c2.getStartTime() <= c.getEndTime())||(c2.getEndTime() >= c.getStartTime() && c2.getEndTime() <= c.getEndTime()))){
+                        
                         boolean possibleConflict =false;
                         for (DayOfWeek day : c.getOnDays()){
                             if (c2.getOnDays().contains(day)){
@@ -191,10 +195,12 @@ import Classes.Course;
                         }
                         if (possibleConflict)
                         conflict++;
+                
                     }
                 }
                 
             }
+            System.out.println(c.getIdentifier() + " conflicts:" + conflict);
             if (conflict > maxConflict){
                     maxConflict = conflict;
                     tie = false;
@@ -209,7 +215,7 @@ import Classes.Course;
         if (conflictingClass != null && !tie){
             System.out.println(conflictingClass.getIdentifier() + " caused the most conflicts during generation");
         }else{
-            System.out.println("No course caused more conflicts than any other during generation")
+            System.out.println("No course caused more conflicts than any other during generation");
         }
         
     }

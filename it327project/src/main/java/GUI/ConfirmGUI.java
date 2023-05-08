@@ -94,7 +94,7 @@ public class ConfirmGUI extends JFrame implements ActionListener{
         } else if(e.getSource() == noButton && constructorType.equals("class")){
             MakerController.removeClass(class1.toString());
         } else if(e.getSource() == noButton && constructorType.equals("event")){
-            MakerController.removeEvent(event);
+            MakerController.removeEvent("event");
         }
     }
 

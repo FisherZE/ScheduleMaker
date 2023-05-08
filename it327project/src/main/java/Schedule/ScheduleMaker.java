@@ -148,7 +148,7 @@ import Classes.Course;
             }      
                           
         }        
-        
+        courseConflicts();
     }
     //Sorts the schedules by earliest start time
     public static void sortSchedules(){
@@ -174,7 +174,7 @@ import Classes.Course;
 
     }
     // Checks to see which class has the most conflictions. Returns null if no culprit is found
-    public static String courseConflicts(){
+    public static void courseConflicts(){
         int maxConflict = 0;
         Class conflictingClass = null;
         boolean tie = false;
@@ -199,9 +199,9 @@ import Classes.Course;
 
         }
         if (conflictingClass != null && !tie){
-            return conflictingClass.toString();
+            System.out.println(conflictingClass.getIdentifier() + " caused the most conflicts during generation");
         }else{
-            return null;
+            System.out.println("No course caused more conflicts than any other during generation")
         }
         
     }

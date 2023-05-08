@@ -1,10 +1,13 @@
 package Schedule;
 import java.time.*;
 import java.util.ArrayList;
+
 import Classes.Class;
 import Classes.Course;
+
  public class ScheduleMaker
  {
+    
     private static ArrayList<Schedule> schedules;
     private static ArrayList<DayOfWeek> eligibleDays;
     private static ArrayList<Event> events;
@@ -197,6 +200,7 @@ import Classes.Course;
                 }
                 
             }
+            
             if (conflict > maxConflict){
                 mostConflicting.clear();
                 mostConflicting.add(c);

@@ -20,7 +20,9 @@ public class ScheduleMakerTester{
        
     @Before
     public void startUp(){
+        
         ScheduleMaker.initialize();
+        ScheduleMaker.setMinCreditHours(8);
         MWF = new ArrayList<DayOfWeek>();
         MWF.add(DayOfWeek.MONDAY);
         MWF.add(DayOfWeek.WEDNESDAY);
@@ -43,11 +45,7 @@ public class ScheduleMakerTester{
         courseLog.add(ClassFactory.createCourse("MAT146", "1",MWF, 1300, 1415,4,"Undergraduate","Course"));
         courseLog.add(ClassFactory.createCourse("COM110", "1",MWF, 1400, 1450,3,"Undergraduate","Course"));
         courseLog.add(ClassFactory.createCourse("COM110", "3",TTh, 1400, 1450,3,"Undergraduate","Course"));
-        ScheduleMaker.addEligibleDay(DayOfWeek.MONDAY);
-        ScheduleMaker.addEligibleDay(DayOfWeek.TUESDAY);
-        ScheduleMaker.addEligibleDay(DayOfWeek.WEDNESDAY);
-        ScheduleMaker.addEligibleDay(DayOfWeek.THURSDAY);
-        ScheduleMaker.addEligibleDay(DayOfWeek.FRIDAY);
+       
        
     }
 
@@ -87,8 +85,8 @@ public class ScheduleMakerTester{
     }
     @Test
     public void noPossibleSchedule(){
-        ScheduleMaker.addClass(courseLog.get(0));
         ScheduleMaker.addClass(courseLog.get(1));
+        ScheduleMaker.addClass(courseLog.get(5));
         ScheduleMaker.generateSchedules();
         ArrayList<Schedule> sch = ScheduleMaker.getSchedules();
         boolean assertion = sch.size() == 0;
@@ -134,6 +132,23 @@ public class ScheduleMakerTester{
         ArrayList<Schedule> sch = ScheduleMaker.getSchedules();
         boolean assertion = sch.size() == 0;
         assertTrue(assertion);
+    }
+    @Test 
+    public void allEncompassingClass(){
+        courseLog.add(ClassFactory.createCourse("VOID404", "99",MWF, 0, 2400,3,"Undergraduate","Course"));
+        for(Class c : courseLog){
+            ScheduleMaker.addClass(c);
+        }
+        ScheduleMaker.generateSchedules();
+        ArrayList<Schedule> sch = ScheduleMaker.getSchedules();
+        boolean test = true;
+        for (Schedule sched : sch){
+            if (sched.getClasses().contains(courseLog.get(0)) && sched.getClasses().contains(courseLog.get(8))){
+                test = false;
+            }
+
+        }
+        assertTrue(test);
     }
     
 }

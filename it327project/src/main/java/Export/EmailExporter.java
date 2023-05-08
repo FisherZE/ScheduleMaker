@@ -34,6 +34,10 @@ public class EmailExporter {
     prop.put("mail.smtp.port", "465");
     prop.put("mail.smtp.ssl.enable", "true");
     prop.put("mail.smtp.auth", "true");
+    prop.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+    prop.put("mail.smtp.ssl.protocols", "TLSv1.2");
+
+
    
     Session session = Session.getInstance(prop, new javax.mail.Authenticator() {
      protected PasswordAuthentication getPasswordAuthentication() {

@@ -200,7 +200,7 @@ import Classes.Course;
                 }
                 
             }
-            System.out.println(c.getIdentifier() + " conflicts:" + conflict);
+            
             if (conflict > maxConflict){
                 mostConflicting.clear();
                 mostConflicting.add(c);
@@ -296,6 +296,10 @@ import Classes.Course;
     }
 
     public static void removeSchedule(Schedule sched){
+        System.out.println("Removed Schedule");
+        for (Class c : sched.getClasses()){
+            System.out.println(c.getIdentifier());
+        }
         schedules.remove(sched);
     }
 

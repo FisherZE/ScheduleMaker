@@ -181,12 +181,21 @@ import Classes.Course;
         for (Class c : classes){
             int conflict = 0;
             for (Class c2 : classes){
-                if (!c2.getIdentifier().equals(c.getIdentifier())){
+                if (!c2.getCourseId.equals(c.getCourseId())){
                     if ((c.getStartTime() >= c2.getStartTime() && c.getStartTime() <= c2.getEndTime())||(c.getEndTime() >= c2.getStartTime() && c.getEndTime() <= c2.getEndTime())){
+                        boolean possibleConflict =false;
+                        for (DayOfWeek day : c.getOnDays()){
+                            if (c2.getOnDays().contains(day)){
+                                possibleConflict = true;
+                            }
+                        }
+                        if (possibleConflict)
                         conflict++;
                     }
                 }
-                if (conflict > maxConflict){
+                
+            }
+            if (conflict > maxConflict){
                     maxConflict = conflict;
                     tie = false;
                     conflictingClass = c;
@@ -195,7 +204,6 @@ import Classes.Course;
                     tie = true;
 
                 }
-            }
 
         }
         if (conflictingClass != null && !tie){

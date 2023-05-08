@@ -148,7 +148,7 @@ import Classes.Course;
             }      
                           
         }        
-        
+        courseConflicts();
     }
     //Sorts the schedules by earliest start time
     public static void sortSchedules(){
@@ -174,34 +174,49 @@ import Classes.Course;
 
     }
     // Checks to see which class has the most conflictions. Returns null if no culprit is found
-    public static String courseConflicts(){
+    public static void courseConflicts(){
+        ArrayList<Class> mostConflicting = new ArrayList<Class>();
         int maxConflict = 0;
-        Class conflictingClass = null;
         boolean tie = false;
         for (Class c : classes){
             int conflict = 0;
             for (Class c2 : classes){
-                if (!c2.getIdentifier().equals(c.getIdentifier())){
-                    if ((c.getStartTime() >= c2.getStartTime() && c.getStartTime() <= c2.getEndTime())||(c.getEndTime() >= c2.getStartTime() && c.getEndTime() <= c2.getEndTime())){
+                if (!((Course)c2).getCourseId().equals(((Course) c).getCourseId())){
+                    if ((c.getStartTime() >= c2.getStartTime() && c.getStartTime() <= c2.getEndTime())||(c.getEndTime() >= c2.getStartTime() && c.getEndTime() <= c2.getEndTime()) || ((c2.getStartTime() >= c.getStartTime() && c2.getStartTime() <= c.getEndTime())||(c2.getEndTime() >= c.getStartTime() && c2.getEndTime() <= c.getEndTime()))){
+                        
+                        boolean possibleConflict =false;
+                        for (DayOfWeek day : c.getOnDays()){
+                            if (c2.getOnDays().contains(day)){
+                                possibleConflict = true;
+                            }
+                        }
+                        if (possibleConflict)
                         conflict++;
+                
                     }
                 }
-                if (conflict > maxConflict){
+                
+            }
+            if (conflict > maxConflict){
+                mostConflicting.clear();
+                mostConflicting.add(c);
                     maxConflict = conflict;
                     tie = false;
-                    conflictingClass = c;
 
                 }else if(conflict == maxConflict){
                     tie = true;
+                    mostConflicting.add(c);
 
                 }
-            }
 
         }
-        if (conflictingClass != null && !tie){
-            return conflictingClass.toString();
+        if (mostConflicting.size() > 0){
+            System.out.print("Most conflicting classes: ");
+            for (Class c : mostConflicting){
+                System.out.print(c.getIdentifier() + " ");
+            }
         }else{
-            return null;
+            System.out.println("No course caused more conflicts than any other during generation");
         }
         
     }
@@ -277,6 +292,10 @@ import Classes.Course;
     }
 
     public static void removeSchedule(Schedule sched){
+        System.out.println("Removed Schedule");
+        for (Class c : sched.getClasses()){
+            System.out.println(c.getIdentifier());
+        }
         schedules.remove(sched);
     }
 

@@ -52,6 +52,11 @@ public class ScheduleListGUI extends JFrame implements ActionListener{
         titlePanel.add(title);
 
         int count = 1;
+        schedulePanel.add(new JLabel("Schedule #"));
+        schedulePanel.add(new JLabel("Earliest Class"));
+        schedulePanel.add(new JLabel("Latest Class"));
+        schedulePanel.add(new JLabel("Total Credit Hours"));
+        schedulePanel.add(new JLabel("Click to view Schedule"));
         for(Schedule schedule : schedules){
             JLabel label1 = new JLabel("Schedule "+ count);
             JLabel label2 = new JLabel(schedule.getClasses().get(0).getStartTime()+ "");

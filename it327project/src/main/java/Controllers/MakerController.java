@@ -70,7 +70,6 @@ public class MakerController {
     public boolean addPreferences(String[] arr, ArrayList<DayOfWeek> days){
         updatePreferences(arr, days);
         return false;
-
     }
 
     public static boolean updatePreferences(String[] arr, ArrayList<DayOfWeek> days){

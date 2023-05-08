@@ -5,6 +5,7 @@ import java.time.DayOfWeek;
 
 import Converter.CSVConverter;
 import Converter.ICSConverter;
+import Export.EmailExporter;
 import Schedule.Schedule;
 
 public class ExportController {
@@ -32,7 +33,8 @@ public class ExportController {
     }
 
     public static void exportEmail(String email, String fileType, Schedule Schedule){
-        //No ICS
+        EmailExporter emailExporter = new EmailExporter();
+        emailExporter.exportEmail(Schedule, email);
     }
 
     public static void downloadFile(String fileType, Schedule schedule) throws IOException{

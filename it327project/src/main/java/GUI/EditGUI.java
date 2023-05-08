@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import Controllers.MakerController;
+import Schedule.ScheduleMaker;
 
 public class EditGUI extends JFrame implements ActionListener{
 
@@ -57,6 +58,12 @@ public class EditGUI extends JFrame implements ActionListener{
     private static JTextField lateField = new JTextField("ex: 1700");
     private static JTextField elligibleField = new JTextField("ex: M T W TH");
     private static JButton deletePrefButton = new JButton("Reset Preferences");
+
+    //Event
+    private static JPanel eventPanel = new JPanel(new GridLayout(0,2));
+    private static JButton eventButton = new JButton("Remove Event");
+    private static JLabel eventLabel = new JLabel("Event Name");
+    private static JTextField eventField = new JTextField("ex: Event1");
 
     public EditGUI(){
         //Frame setup
@@ -112,6 +119,15 @@ public class EditGUI extends JFrame implements ActionListener{
         deletePrefButton.addActionListener(this);
         centerPanel.add(preferenceEditPanel);
 
+        //Event
+        eventPanel.add(new JLabel("Remove an Event"));
+        eventPanel.add(new JLabel(""));
+        eventPanel.add(eventLabel);
+        eventPanel.add(eventField);
+        eventPanel.add(eventButton);
+        eventButton.addActionListener(this);
+        centerPanel.add(eventPanel);
+
     }
 
 
@@ -165,6 +181,8 @@ public class EditGUI extends JFrame implements ActionListener{
             MakerController.updatePreferences(params, onDays);
         } else if (e.getSource() == deletePrefButton){
             MakerController.deletePreferences();
+        } else if (e.getSource() == eventButton){
+            MakerController.removeEvent(eventField.getText());
         }
     }
     

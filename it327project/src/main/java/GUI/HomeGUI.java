@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.time.DayOfWeek;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -19,6 +21,7 @@ import javax.swing.JTextField;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 
 import Controllers.MakerController;
+import Schedule.Event;
 import Schedule.ScheduleMaker;
 
 public class HomeGUI extends JFrame implements ActionListener {
@@ -172,8 +175,40 @@ public class HomeGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == addEvent){
+            Event ev = new Event(eNameInput.getText(), Integer.parseInt(eStartInput.getText()), Integer.parseInt(eEndInput.getText()));
+            String[] str = eOnInput.getText().split(" ");
+            for (String s : str){
+                if (s.equals("M")){
+                    ev.addOnDay(DayOfWeek.MONDAY);
+                } else if (s.equals("T")){
+                    ev.addOnDay(DayOfWeek.TUESDAY);
+                } else if (s.equals("W")){
+                    ev.addOnDay(DayOfWeek.WEDNESDAY);
+                } else if (s.equals("Th")){
+                    ev.addOnDay(DayOfWeek.THURSDAY);
+                } else if (s.equals("F")){
+                    ev.addOnDay(DayOfWeek.FRIDAY);
+                }
+            }
+            MakerController.addEvent(ev);
             System.out.println("Event");
         } else if (e.getSource() == prefButton){
+            String[] arr = {minCredField.getText(), maxCredField.getText(), earlyField.getText(), lateField.getText()};
+            ArrayList<DayOfWeek> days = new ArrayList<>();
+            String[] str = daysField.getText().split(" ");
+            for (String s : str){
+                if (s.equals("M")){
+                    days.add(DayOfWeek.MONDAY);
+                } else if (s.equals("T")){
+                    days.add(DayOfWeek.TUESDAY);
+                } else if (s.equals("W")){
+                    days.add(DayOfWeek.WEDNESDAY);
+                } else if (s.equals("Th")){
+                    days.add(DayOfWeek.THURSDAY);
+                } else if (s.equals("F")){
+                    days.add(DayOfWeek.FRIDAY);
+                }
+            }
             System.out.println("Preferences");
         } else if (e.getSource() == classButton){
             try {

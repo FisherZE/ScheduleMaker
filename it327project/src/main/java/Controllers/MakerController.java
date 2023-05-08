@@ -108,16 +108,21 @@ public class MakerController {
 
     }
 
-    public boolean addEvent(Event event){
+    public static boolean addEvent(Event event){
         if (event == null) return false;
         ScheduleMaker.addEvent(event);
         return true;
 
     }
 
-    public static boolean removeEvent(Event event){
-        if (event == null) return false;
-        return ScheduleMaker.removeEvent(event);
+    public static boolean removeEvent(String name){
+        for (Event e : ScheduleMaker.getEvents()){
+            if(e.getName().equals(name)){
+                ScheduleMaker.removeEvent(e);
+                return true;
+            }
+        }
+        return false;
 
     }
 }

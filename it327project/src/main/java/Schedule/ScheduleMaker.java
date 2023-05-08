@@ -63,6 +63,9 @@ import Classes.Course;
         for (int i = 0; i < Math.pow(2, mask.length); i++)
         {      
             Schedule newSched = new Schedule();
+            System.out.println(events.size());
+            ArrayList<Event> ev = new ArrayList<>(events);
+            newSched.setEvents(ev);
             if (i != 0)
             {
                 mask[0]++;
@@ -301,6 +304,10 @@ import Classes.Course;
             System.out.println(c.getIdentifier());
         }
         schedules.remove(sched);
+    }
+
+    public static ArrayList<Event> getEvents() {
+        return events;
     }
 
 

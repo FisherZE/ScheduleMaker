@@ -25,7 +25,6 @@ public class MakerController {
         if (class1 == null) return false;
         ScheduleMaker.addClass(class1);
         return true;
-
     }
 
     public static boolean editClass(String[] arr, ArrayList<DayOfWeek> days){

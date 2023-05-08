@@ -5,9 +5,9 @@ import java.util.*;
 
 public class ClassFactory {
 
-    public static Class createCourse(String courseId, String secId, ArrayList<DayOfWeek> onDays, int startTime, int endTime, int creditHours, String courseType, String classType) {
+    public static Course createCourse(String courseId, String secId, ArrayList<DayOfWeek> onDays, int startTime, int endTime, int creditHours, String courseType, String classType) {
         // create a new instance of a concrete implementation of the Class abstract class
-        Class newClass = new Course(courseId, secId, onDays, startTime, endTime, creditHours, classType, classType);
+        Course newClass = new Course(courseId, secId, onDays, startTime, endTime, creditHours, classType, classType);
         return newClass;
     }
 

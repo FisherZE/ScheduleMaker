@@ -178,8 +178,8 @@ import Classes.Course;
     }
     // Checks to see which class has the most conflictions. Returns null if no culprit is found
     public static void courseConflicts(){
+        ArrayList<Class> mostConflicting = new ArrayList<Class>();
         int maxConflict = 0;
-        Class conflictingClass = null;
         boolean tie = false;
         for (Class c : classes){
             int conflict = 0;
@@ -202,18 +202,23 @@ import Classes.Course;
             }
             System.out.println(c.getIdentifier() + " conflicts:" + conflict);
             if (conflict > maxConflict){
+                mostConflicting.clear();
+                mostConflicting.add(c);
                     maxConflict = conflict;
                     tie = false;
-                    conflictingClass = c;
 
                 }else if(conflict == maxConflict){
                     tie = true;
+                    mostConflicting.add(c);
 
                 }
 
         }
-        if (conflictingClass != null && !tie){
-            System.out.println(conflictingClass.getIdentifier() + " caused the most conflicts during generation");
+        if (mostConflicting.size() > 0){
+            System.out.print("Most conflicting classes: ");
+            for (Class c : mostConflicting){
+                System.out.print(c.getIdentifier() + " ");
+            }
         }else{
             System.out.println("No course caused more conflicts than any other during generation");
         }

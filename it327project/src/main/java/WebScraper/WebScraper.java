@@ -30,7 +30,7 @@ public static Class[] searchCourse(String query) throws FailingHttpStatusCodeExc
 
     // I have no idea what these do but if they aren't here the program throws an exception and dies
     client.getOptions().setCssEnabled(false); 
-	client.getOptions().setJavaScriptEnabled(false);
+    client.getOptions().setJavaScriptEnabled(false);
     
     Scanner scan = new Scanner(System.in);
     HtmlPage searchPage = client.getPage("https://coursefinder.illinoisstate.edu/"); // connect to search page
